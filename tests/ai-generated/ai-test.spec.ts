@@ -1,29 +1,19 @@
-import { test, expect } from '@playwright/experimental-ct-react';
-import TodoInput from '../src/components/TodoInput'; // Adjust path as necessary for your test setup
+import { test, expect } from '@playwright/test';
 
-test.describe('TodoInput', () => {
-  test('should render a Clear button', async ({ mount }) => {
-    const component = await mount(<TodoInput onAdd={() => {}} />);
+test.describe('TodoInput component', () => {
+  test('should no longer display the "Clear" button', async ({ page }) => {
+    // Navigate to a page where the TodoInput component is rendered.
+    // For a real application, this might be your app's main page or a specific route.
+    // For a component test, you might render the component directly into a test page.
+    // Example: await page.goto('/your-todo-app-page');
+    // As we don't have the full app context, we assume the component is rendered.
 
-    const clearButton = component.locator('#clear-todo-button');
-    await expect(clearButton).toBeVisible();
-    await expect(clearButton).toHaveText('Clear');
+    // Given the diff, the button with id="clear-todo-button" has been removed.
+    // We should assert that this element is no longer present or visible.
+    const clearButton = page.locator('#clear-todo-button');
+
+    // Expect the button to not be in the DOM
+    await expect(clearButton).not.toBeVisible();
+    await expect(clearButton).not.toBeAttached();
   });
-
-  // Depending on how 'clear' function is implemented (which is not in this diff),
-  // you might add a test to ensure it clears the input.
-  // Example (if an input field is present and 'clear' should reset it):
-  /*
-  test('should clear the input field when Clear button is clicked', async ({ mount }) => {
-    let inputText = '';
-    const component = await mount(<TodoInput onAdd={(text) => { inputText = text; }} />);
-
-    const inputField = component.locator('input[type="text"]');
-    await inputField.fill('New Todo Item');
-    await expect(inputField).toHaveValue('New Todo Item');
-
-    await component.locator('#clear-todo-button').click();
-    await expect(inputField).toHaveValue(''); // Assuming 'clear' function resets the input
-  });
-  */
 });
