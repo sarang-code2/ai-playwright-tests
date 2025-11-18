@@ -1,11 +1,10 @@
 ```typescript
 import { test, expect } from '@playwright/test';
 
-// No specific test cases could be generated as the provided diff was empty.
-// This is a placeholder test. When a diff is provided, this generator will
-// create relevant Playwright tests based on the changes.
-test('empty diff provided - no specific test generated', async ({ page }) => {
-  await page.goto('about:blank'); // Navigate to a blank page to fulfill the test structure
-  expect(true).toBe(true); // Always pass, as there's no change to assert against
+// No Playwright test cases generated as the provided PR diff is empty.
+// Please provide a diff with code changes to generate relevant tests.
+test.skip('no new tests generated due to empty diff', async () => {
+  // This test is skipped because there were no code changes in the provided diff
+  // to analyze and generate specific test cases for.
 });
 ```
