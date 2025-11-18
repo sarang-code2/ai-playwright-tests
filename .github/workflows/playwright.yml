@@ -10,24 +10,35 @@ jobs:
       - name: Checkout Repo B (tests)
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Checkout Repo A (Todo App)
         uses: actions/checkout@v3
         with:
           repository: sarang-code2/todo-app
           path: repo-a
 
-      - name: Install Todo App deps
+      - name: Install Todo App dependencies
         working-directory: repo-a
         run: npm install
 
-      - name: Start Todo App
+      - name: Build Todo App
+        working-directory: repo-a
+        run: npm run build
+
+      - name: Start Todo App (Vite Preview on port 4173)
         working-directory: repo-a
         run: |
-          nohup npm run dev &
+          nohup npm run preview -- --port=4173 &
           sleep 5
 
-      - name: Install Playwright
+      - name: Install Playwright in Repo B
         run: npm install && npx playwright install --with-deps
 
       - name: Run Playwright Tests
+        env:
+          BASE_URL: http://localhost:4173
         run: npx playwright test
